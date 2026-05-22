@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1 2026 Countdown</title>
+<link rel="stylesheet" href="./Mainformula.css">
+</head>
+
+<body>
+
+    <!-- FULLSCREEN -->
+    <div class="fullscreen-map" id="fullscreenMap">
+        <span class="close-btn" id="closeMap">&times;</span>
+        <img id="fullscreenImage">
+    </div>
+
+    <!-- TRACK PREVIEW -->
+    <div class="track-map">
+        <img id="trackImage" loading="lazy">
+    </div>
+
+    <div class="hero">
+        <div>
+            <span class="badge" >2026 Season</span>
+
+            <h1>
+                <span id="raceCountry">Australian</span>
+                <span class="f1-red">Grand Prix</span>
+            </h1>
+
+            <p id="raceInfo">
+                Melbourne, Australia • March 8, 2026 • 09:30 AM IST
+            </p>
+
+            <select id="raceSelector">
+
+                <option value="2026-03-08T09:30:00" data-country="Australian" data-location="Melbourne, Australia"
+                    data-display="March 8, 2026 • 09:30 AM IST"
+                    data-track="https://cdn-media.theathletic.com/cdn-cgi/image/width=1000%2cquality=70%2cformat=auto/https://cdn-media.theathletic.com/63pGWh5DdoPu_wCbDMoVTHCq5_1440x1359.png">
+                    Round 1: Australian GP</option>
+
+                <option value="2026-03-15T12:30:00" data-country="Chinese" data-location="Shanghai, China"
+                    data-display="March 15, 2026 • 12:30 PM IST"
+                    data-track="https://cdn-media.theathletic.com/AMOuH8JLEEvA_nrpEKuYIHoMm_1440x1106.png">
+                    Round 2: Chinese GP</option>
+
+                <option value="2026-03-29T10:30:00" data-country="Japanese" data-location="Suzuka, Japan"
+                    data-display="March 29, 2026 • 10:30 AM IST"
+                    data-track="https://ichef.bbci.co.uk/ace/standard/624/cpsprodpb/159E0/production/_91444588_japan_graphic.png">
+                    Round 3: Japanese GP</option>
+
+                <option value="2026-04-12T20:30:00" data-country="Bahrain" data-location="Sakhir, Bahrain"
+                    data-display="April 12, 2026 • 08:30 PM IST"
+                    data-track="https://tracinginsights.com/media/post_images/TracingInsights.com_Bahrain_Grand_Prix_Bahrain_International_Circuit_Characteristics.png">
+                    Round 4: Bahrain GP</option>
+
+                <option value="2026-04-19T22:30:00" data-country="Saudi Arabian" data-location="Jeddah, Saudi Arabia"
+                    data-display="April 19, 2026 • 10:30 PM IST"
+                    data-track="https://tracinginsights.com/media/post_images/TracingInsights.com_Bahrain_Grand_Prix_Jeddah_Corniche_Circuit_Characteristics.jpg">
+                    Round 5: Saudi Arabian GP</option>
+
+                <option value="2026-05-04T01:30:00" data-country="Miami" data-location="Miami, USA"
+                    data-display="May 4, 2026 • 01:30 AM IST"
+                    data-track="https://tracinginsights.com/media/post_images/TracingInsights.com_Miami_Grand_Prix_Miami_International_Autodrome_Circuit_Characteristics.jpg">
+                    Round 6: Miami GP</option>
+
+                <option value="2026-05-25T01:30:00" data-country="Canadian" data-location="Montreal, Canada"
+                    data-display="May 25, 2026 • 01:30 AM IST"
+                    data-track="https://static01.nyt.com/athletic/uploads/wp/2024/06/05212836/CANADA-ZOOM-hairpin_v4.gif">
+                    Round 7: Canadian GP</option>
+
+                <option value="2026-06-07T18:30:00" data-country="Monaco" data-location="Monte Carlo, Monaco"
+                    data-display="June 7, 2026 • 06:30 PM IST"
+                    data-track="https://upload.wikimedia.org/wikipedia/commons/9/9c/Circuit_de_Monaco.svg">
+                    Round 8: Monaco GP</option>
+
+                <option value="2026-06-14T18:30:00" data-country="Spanish" data-location="Montmeló, Spain"
+                    data-display="June 14, 2026 • 06:30 PM IST"
+                    data-track="https://upload.wikimedia.org/wikipedia/commons/6/6f/Circuit_de_Barcelona-Catalunya.svg">
+                    Round 9: Barcelona GP</option>
+
+                <option value="2026-06-28T18:30:00" data-country="Austrian" data-location="Spielberg, Austria"
+                    data-display="June 28, 2026 • 06:30 PM IST"
+                    data-track="https://upload.wikimedia.org/wikipedia/commons/4/4f/Red_Bull_Ring.svg">
+                    Round 10: Austrian GP</option>
+
+            </select>
+        </div>
+
+        <div class="bottom">
+            <div class="timer">
+                <div class="card">
+                    <div id="days" class="number">00</div>
+                    <div class="label">DAYS</div>
+                </div>
+                <div class="card">
+                    <div id="hours" class="number">00</div>
+                    <div class="label">HOURS</div>
+                </div>
+                <div class="card">
+                    <div id="minutes" class="number">00</div>
+                    <div class="label">MINS</div>
+                </div>
+                <div class="card">
+                    <div id="seconds" class="number f1-red">00</div>
+                    <div class="label">SECS</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // const fallbackImage = "https://cdn.vectorstock.com/i/1000v/02/35/coming-soon-black-background-design-vector-41670235.jpg";
+
+        const selector = document.getElementById("raceSelector");
+        const raceCountry = document.getElementById("raceCountry");
+        const raceInfo = document.getElementById("raceInfo");
+        const trackImage = document.getElementById("trackImage");
+
+        const days = document.getElementById("days");
+        const hours = document.getElementById("hours");
+        const minutes = document.getElementById("minutes");
+        const seconds = document.getElementById("seconds");
+
+        let interval = null;
+
+        /* IMAGE SAFE LOADER */
+        function loadTrack(url) {
+            if (!url) { trackImage.src = fallbackImage; return; }
+            const img = new Image();
+            img.onload = () => trackImage.src = url;
+            img.onerror = () => trackImage.src = fallbackImage;
+            img.src = url;
+        }
+
+        /* COUNTDOWN */
+        function startCountdown() {
+            if (interval) clearInterval(interval);
+
+            const selected = selector.options[selector.selectedIndex];
+            const target = new Date(selected.value).getTime();
+
+            raceCountry.textContent = selected.dataset.country;
+            raceInfo.textContent = `${selected.dataset.location} • ${selected.dataset.display}`;
+            document.title = `${selected.dataset.country} Grand Prix | F1 2026`;
+
+            loadTrack(selected.dataset.track);
+
+            interval = setInterval(() => {
+                const now = Date.now();
+                const gap = target - now;
+
+                if (gap <= 0) {
+                    clearInterval(interval);
+                    updateTimer(0, 0, 0, 0);
+                    return;
+                }
+
+                updateTimer(
+                    Math.floor(gap / 86400000),
+                    Math.floor((gap % 86400000) / 3600000),
+                    Math.floor((gap % 3600000) / 60000),
+                    Math.floor((gap % 60000) / 1000)
+                );
+            }, 1000);
+        }
+
+        function updateTimer(d, h, m, s) {
+            days.textContent = d.toString().padStart(2, "0");
+            hours.textContent = h.toString().padStart(2, "0");
+            minutes.textContent = m.toString().padStart(2, "0");
+            seconds.textContent = s.toString().padStart(2, "0");
+        }
+
+        selector.addEventListener("change", startCountdown);
+        startCountdown();
+
+        /* FULLSCREEN */
+        const fullscreenMap = document.getElementById("fullscreenMap");
+        const fullscreenImage = document.getElementById("fullscreenImage");
+        const closeMap = document.getElementById("closeMap");
+
+        trackImage.addEventListener("click", () => {
+            fullscreenImage.src = trackImage.src;
+            fullscreenMap.classList.add("active");
+        });
+
+        closeMap.addEventListener("click", () => fullscreenMap.classList.remove("active"));
+        fullscreenMap.addEventListener("click", e => {
+            if (e.target === fullscreenMap) fullscreenMap.classList.remove("active");
+        });
+        document.addEventListener("keydown", e => {
+            if (e.key === "Escape") fullscreenMap.classList.remove("active");
+        });
+    </script>
+
+</body>
+
+</html>
